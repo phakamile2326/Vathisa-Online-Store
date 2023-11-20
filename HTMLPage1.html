@@ -1,0 +1,218 @@
+﻿<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+
+    <!----to make the size respond to screensize-->
+    <meta name=" viewport" content="width=device-width", initial-scale="1.0" />
+    <title>Shopping Cart</title>
+    <!--beginning of the CSS for this document, later this can be put in a seperate file-->
+    <style>
+        body{
+            font-family:Arial,sans-serif;
+        }
+        /*CSS for shopping cart, #identifies the elements by their id*/
+        #cart{
+            border:1px solid #ccc;
+            padding:10px;
+            margin:10px;
+        }
+        /*CSS for individual items in the cart, #identifies the elements by their class*/
+        .item{
+            display:flex;
+            flex-direction:column;/*display items in a column layout*/
+            align-items: center;/*center content horizontally*/
+            text-align:center;/*center content vertically*/
+            margin-block: 1px;
+        }
+        /*CSS for the product image*/
+        .product image{
+            width:fit-content;
+            height:auto;
+        }
+
+    </style>
+</head>
+<!--beginning of body-->
+<body>
+    <hi>Vathisa Shopping Cart</hi>
+    <div>
+        <h2>Products</h2>
+        <!--Product A-->
+        <div class="item">
+            <span>Vancouver Acacia Wood Sideboard</span>
+            <img src="images/sideboard.webp" alt="sieboard" class="product-image" />
+            <img src="images/sideboard_open.webp" alt="sideboard" class="product-image" />
+            <button onclick="addtoCart('Vancouver Acacia Wood Sideboard',11,999">Buy Now</button>
+        </div>
+        <br />
+        <br />
+        <hr />
+
+        <!--Product B-->
+        <div class="item">
+            <span>Morris 6 Drawer Chest Black and Brass</span>
+            <img src="images/drawer.jpg" alt="drawer" class="product-image" />
+            <img src="images/drawer-side.jpg" alt="drawer" class="product-image" />
+            <button onclick="addtoCart('Morris 6 Drawer Chest Black and Brass',9,999">Buy Now</button>
+        </div>
+        <br />
+        <br />
+        <hr />
+
+        <!--Product C-->
+        <div class="item">
+            <span>6 Door Wardrobe-Coffee</span>
+            <img src="images/wardrope-front.jpg" alt="wardrobe" class="product-image" />
+            <img src="images/wardrope_side.jpg" alt="wardrobe" class="product-image" />
+            <button onclick="addtoCart('6 Door Wardrope-Coffee',2,499">Buy Now</button>
+        </div>
+        <br />
+        <br />
+        <hr />
+
+        <!--Product D-->
+        <div class="item">
+            <span>Dresser set-All Drawers with Swivel Mirror</span>
+            <img src="images/dresser.jpg" alt="dresser" class="product-image" />
+            <button onclick="addtoCart('Dresser set-All Drawers with Swivel Mirror',16,980">Buy Now</button>
+        </div>
+        <br />
+        <br />
+        <hr />
+
+        <!--Product E-->
+        <div class="item">
+            <span>Sealy Postrurepedic Clio Plush Bed</span>
+            <img src="images/bed_king.webp" alt="kingbed" class="product-image" />
+            <img src="images/bed_single.webp" alt="kingbed" class="product-image" />
+            <button onclick="addtoCart('Sealy Postrurepedic Clio Plush Bed',13,199">Buy Now</button>
+        </div>
+        <br />
+        <br />
+        <hr />
+
+        <!--Product F-->
+        <div class="item">
+            <span>Elite Luxury Queen Bed Set</span>
+            <img src="images/q_bed.png" alt="queenbed" class="product-image" />
+            <img src="images/k_bed.webp" alt="kingbed" class="product-image" />
+            <button onclick="addtoCart('Elite Luxury Queen Bed Set',69,999">Buy Now</button>
+        </div>
+        <br />
+        <br />
+        <hr />
+
+        <!--Product G-->
+        <div class="item">
+            <span>Sharon Bedside Chest Sheagreen</span>
+            <img src="images/bedside.jpg" alt="bedside" class="product-image" />
+            <img src="images/bedsize_size.jpg" alt="bedside" class="product-image" />
+            <button onclick="addtoCart('Sharon Bedside Chest Sheagreen',12,749">Buy Now</button>
+        </div>
+        <br />
+        <br />
+        <hr />
+
+        <!--Product H-->
+        <div class="item">
+            <span>Waldorf Chest of Drawers</span>
+            <img src="images/waldorf.jpg" alt="waldorf" class="product-image" />
+            <img src="images/waldorf_open.jpg" alt="waldorf" class="product-image" />
+            <button onclick="addtoCart('Waldorf Chest of Drawers',10,999">Buy Now</button>
+        </div>
+        <br />
+        <br />
+        <hr />
+
+        <!--Product I-->
+        <div class="item">
+            <span>Ace Bar Unit Sideboard</span>
+            <img src="images/bar-unit.webp" alt="barunit" class="product-image" />
+            <img src="images/bar-unit-grey.webp" alt="barunit" class="product-image" />
+            <button onclick="addtoCart('Ace Bar Unit Sideboard',2,249">Buy Now</button>
+        </div>
+        <br />
+        <br />
+        <hr />
+
+
+    </div>
+
+
+
+    <div id="cart">
+     <h2>Shopping Cart</h2>
+    </div>
+
+    <h2>Card Details</h2>
+    <form>
+        <!--card number inputs-->
+        <label for="cardNumber">Card Number:</label>
+        <input type="text" id="cardNumber" placeholder="1234 5678 9101 1121" />
+        <br />
+
+        <!--expiration date inputs-->
+        <label for="expiration">Expiration Date:</label>
+        <input type="text" id="expiration" placeholder="MM/YY" />
+        <br />
+
+        <!--CVV Inputs-->
+        <label for="cvv">CVV</label>
+        <input type="text" id="cvv" placeholder="123" />
+        <br />
+    </form>
+
+    <!--Checkout button-->
+    <button onclick="checkout()">Checkout</button>
+
+    <script>
+        const cart = []; //array to store items in the shopping cart
+
+        function addtoCart(productName, price) {
+            cart.push({ name: productName, price: price }); //add an item to the cart
+            updateCart(); //Update the cart display
+        }
+
+        function updateCart() {
+            const cartElement = document.getElementById('cart');
+            cartElement.innerHTML = '<h2>Shopping Cart</h2>'; //Initialise the cart display
+
+            let total = 0;
+
+            for (const item of cart) {
+                total += item.price;
+                const itemDiv = document.createElement('div');//create a new HTML element for the item
+                itemDiv.className = 'item'; //apply CSS class to the item container
+                itemDiv.innerHTML = '<span> ${ item.name } - R${ item.price.toFixed(2)}</span>
+                    < button onclick = "removeFromCart('${item.name}')" > Remove</button > ';';
+                cartElement.appendChild(itemDiv);
+            }
+            cartElement.innerHTML += '<strong>Total:R${total.toFixed(2)}</strong>'; //display the total cost
+        }
+
+        function removeFromCart(productName) {
+            const index = cart.findIndex(item => item.name === productName);
+            if (index !== -1) {
+                cart.splice(index, 1);//remove the item from the cart
+                updateCart();//update the cart display
+            }
+            function checkout() {
+                const cardNumber = document.getElementById('cardNumber').value;
+                const expiration = document.getElementById('expiration').value;
+                const cvv = document.getElementById('cvv').value;
+
+                if (cardNumber && expiration && cvv) {
+                    alert("Checkout successful.Thank you for the purchase!")//simulate a checkout process
+
+                    card.length = 0; //clear the cart by setting its length to 0
+                    updateCart();//update the cart display
+                } else {
+                    alert("Please enter card details before checking out"); //display an alert if card details are missing
+                }
+            }
+        }
+    </script>
+</body>
+</html>
